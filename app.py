@@ -9,28 +9,23 @@ st.caption("Created by Athiya firdose")
 mykey = st.secrets["GROQ_API_KEY"]
 
 
-# Initialize RAG engine
 @st.cache_resource
 def initiate_rag():
     return load_base("02_Regulations.pdf")
 
 
-# Load index, embedding model and chunks
 index, embed_model, chunks = initiate_rag()
 
-
-# Initialize chat history
 if "chat_hist" not in st.session_state:
     st.session_state.chat_hist = []
 
 
-# Display previous chat messages
+
 for qa in st.session_state.chat_hist:
     with st.chat_message(qa["role"]):
         st.write(qa["content"])
 
 
-# Accept user question
 question = st.chat_input("Ask anything about college....")
 
 
@@ -66,8 +61,6 @@ if question:
                 }
             )
 
-
-# Clear chat history
 btn = st.button("Clear Chat")
 
 if btn:
